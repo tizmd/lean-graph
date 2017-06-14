@@ -1,0 +1,6 @@
+[package]
+name = "lean-graph"
+version = "0.1"
+
+[dependencies]
+library_dev = {git = "https://github.com/leanprover/library_dev.git", rev = "7c879df486a32dd35d315a9187c9122ffa616d32"}
