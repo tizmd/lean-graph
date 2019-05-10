@@ -1,4 +1,4 @@
-import data.list.set
+import data.list
 universes u₀ u₁ 
 variables {α : Type u₀}
 
@@ -20,6 +20,7 @@ def append : Π {x y z}, path R x y → path R y z → path R x z
 | _ _ _ (@cons .(_) .(_) .(_) w .(_) e p₁) p₂ := cons e (append p₁ p₂) 
 
 lemma nil_append {x y}{p : path R x y} : append nil p = p := rfl 
+
 @[simp]
 lemma append_nil : Π {x y}{p : path R x y}, append p nil = p 
 | _ ._ nil := rfl 
@@ -29,7 +30,7 @@ lemma append_nil : Π {x y}{p : path R x y}, append p nil = p
 lemma append_assoc : Π {w x y z}{p₁ : path R w x}{p₂ : path R x y}{p₃ : path R y z}, 
   append (append p₁ p₂) p₃ = append p₁ (append p₂ p₃) 
 | _ ._ _ _ nil p₂ p₃ := rfl 
-| _ _ _ _ (@cons ._ ._ ._ _ ._ e p₁) p₂ p₃ := by simph [append]
+| _ _ _ _ (@cons ._ ._ ._ _ ._ e p₁) p₂ p₃ := sorry
 
 @[simp]
 lemma length_append : Π {x y z}{p₁ : path R x y}{p₂ : path R y z}, length (append p₁ p₂) = p₁.length + p₂.length 
