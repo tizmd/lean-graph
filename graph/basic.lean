@@ -1,4 +1,5 @@
 import .path 
+
 universes u₁ u₂ 
 
 structure graph := (vertex : Type u₁) (edge : vertex → vertex → Sort u₂)
@@ -19,13 +20,21 @@ def fin_graph {n} : (fin n → fin n → ℕ) → graph := λ spec, ⟨fin n, λ
 structure rooted_graph extends graph := 
   (root : vertex)
   (root_reachable : Π (v : vertex), graph.path root v)
-  (root_init  : graph.incoming root → false)
-
+  (root_isolate  : graph.incoming root → false)
  
 namespace rooted_graph 
 variable {g : rooted_graph}
-#check (λ w : g.vertex, root_reachable g w) 
-def dom v (w : g.vertex) : Prop := ∀ (p : g.root_reachable w), v ∈ p.occurrences
+
+def root' := g.root
+
+def dom (v w : g.vertex) : Prop := ∀ (p : graph.path root' w), v ∈ p.occurrences
+def sdom (v w : g.vertex) : Prop := dom v w ∧ v ≠ w
+
+namespace dom
+
+@[refl]
+theorem refl : ∀ (v : g.vertex), dom v v := λ v p, by apply path.target_mem_occurrences
 
 
+end dom  
 end rooted_graph

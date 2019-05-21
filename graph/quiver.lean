@@ -19,14 +19,14 @@ instance simple_edge_subsingleton {p : set (V × V )} {v w : V} : subsingleton (
    begin
     apply subtype.eq,
     apply subtype.eq,
-    assert H₁ : e₁.fst = v ∧ e₁.snd = w, apply h₁,
-    assert H₂  : e₂.fst = v ∧ e₂.snd = w, apply h₂,
-    assert H : e₁.fst = e₂.fst ∧ e₁.snd = e₂.snd, 
+    have H₁ : e₁.fst = v ∧ e₁.snd = w, apply h₁,
+    have H₂  : e₂.fst = v ∧ e₂.snd = w, apply h₂,
+    have H : e₁.fst = e₂.fst ∧ e₁.snd = e₂.snd, 
        { apply and.intro,
-         simp_using_hs,
-         simp_using_hs
+         simp [*],
+         simp [*]
        },   
-    assert Lem : ∀ x : V × V, x = ⟨x.fst, x.snd⟩, 
+    have Lem : ∀ x : V × V, x = ⟨x.fst, x.snd⟩, 
       {
           intro x,
           cases x,
